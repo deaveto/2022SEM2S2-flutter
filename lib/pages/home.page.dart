@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String Resultado = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,13 @@ class _HomePageState extends State<HomePage> {
               color: Colors.green,
               child: Row(
                 children: [
-                  Text("Resultados"),
+                  Text(
+                    Resultado,
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -55,7 +62,9 @@ class _HomePageState extends State<HomePage> {
                     modeloBoton(
                         titulos: "%",
                         metodo: () {
-                          print("Porcentaje");
+                          setState(() {
+                            Resultado += "%";
+                          });
                         }),
                     modeloBoton(
                         titulos: "CE",
@@ -75,90 +84,148 @@ class _HomePageState extends State<HomePage> {
                   ]),
                   filaBoton([
                     modeloBoton(
+                        titulos: "1/2",
+                        metodo: () {
+                          print("fraccion");
+                        }),
+                    modeloBoton(
+                        titulos: "x^2",
+                        metodo: () {
+                          print("exponente");
+                        }),
+                    modeloBoton(
+                        titulos: "√",
+                        metodo: () {
+                          setState(() {
+                            Resultado += "√";
+                          });
+                        }),
+                    modeloBoton(
+                        titulos: "/",
+                        metodo: () {
+                          setState(() {
+                            Resultado += "/";
+                          });
+                        }),
+                  ]),
+                  filaBoton([
+                    modeloBoton(
                         titulos: "7",
                         metodo: () {
-                          print("7");
+                          setState(() {
+                            Resultado += "7";
+                          });
                         }),
                     modeloBoton(
                         titulos: "8",
                         metodo: () {
-                          print("8");
+                          setState(() {
+                            Resultado += "8";
+                          });
                         }),
                     modeloBoton(
                         titulos: "9",
                         metodo: () {
-                          print("9");
+                          setState(() {
+                            Resultado += "9";
+                          });
                         }),
                     modeloBoton(
                         titulos: "X",
                         metodo: () {
-                          print("POR");
+                          setState(() {
+                            Resultado += "X";
+                          });
                         }),
                   ]),
                   filaBoton([
                     modeloBoton(
                         titulos: "4",
                         metodo: () {
-                          print("4");
+                          setState(() {
+                            Resultado += "4";
+                          });
                         }),
                     modeloBoton(
                         titulos: "5",
                         metodo: () {
-                          print("5");
+                          setState(() {
+                            Resultado += "5";
+                          });
                         }),
                     modeloBoton(
                         titulos: "6",
                         metodo: () {
-                          print("6");
+                          setState(() {
+                            Resultado += "6";
+                          });
                         }),
                     modeloBoton(
                         titulos: "-",
                         metodo: () {
-                          print("menos.");
+                          setState(() {
+                            Resultado += "-";
+                          });
                         }),
                   ]),
                   filaBoton([
                     modeloBoton(
                         titulos: "1",
                         metodo: () {
-                          print("uno");
+                          setState(() {
+                            Resultado += "1";
+                          });
                         }),
                     modeloBoton(
                         titulos: "2",
                         metodo: () {
-                          print("dos");
+                          setState(() {
+                            Resultado += "2";
+                          });
                         }),
                     modeloBoton(
                         titulos: "3",
                         metodo: () {
-                          print("tres");
+                          setState(() {
+                            Resultado += "3";
+                          });
                         }),
                     modeloBoton(
                         titulos: "+",
                         metodo: () {
-                          print("mas");
+                          setState(() {
+                            Resultado += "+";
+                          });
                         }),
                   ]),
                   filaBoton([
                     modeloBoton(
                         titulos: "+/-",
                         metodo: () {
-                          print("mas o menos");
+                          setState(() {
+                            Resultado += "+/-";
+                          });
                         }),
                     modeloBoton(
-                        titulos: "'0",
+                        titulos: "0",
                         metodo: () {
-                          print("0");
+                          setState(() {
+                            Resultado += "0";
+                          });
                         }),
                     modeloBoton(
                         titulos: ".",
                         metodo: () {
-                          print("punto");
+                          setState(() {
+                            Resultado += ".";
+                          });
                         }),
                     modeloBoton(
                         titulos: "=",
                         metodo: () {
-                          print("igual");
+                          setState(() {
+                            Resultado += "=";
+                          });
                         }),
                   ]),
                 ],
