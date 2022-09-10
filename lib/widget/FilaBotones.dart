@@ -11,5 +11,5 @@ Widget filaBoton(List<modeloBoton> lista) {
 
   return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: listabotones); // espacio entre filass
+      children: listabotones); // espacio entre filass Diego
 }
