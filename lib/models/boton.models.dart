@@ -4,3 +4,5 @@ class modeloBoton {
 
   modeloBoton({required this.titulos, required this.metodo});
 }
+
+class reseteo {}
