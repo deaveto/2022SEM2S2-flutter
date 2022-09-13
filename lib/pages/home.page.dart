@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String Resultado = "";
+  String Operaciones = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +23,17 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 4,
             child: Container(
-              height: 100,
+              height: 50,
               color: Colors.grey,
               child: Row(
                 children: [
-                  Text("Operaciones"),
+                  Text(
+                    Operaciones,
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -74,7 +81,10 @@ class _HomePageState extends State<HomePage> {
                     modeloBoton(
                         titulos: "C",
                         metodo: () {
-                          print("C");
+                          setState(() {
+                            Resultado = "0";
+                            Operaciones = "0";
+                          });
                         }),
                     modeloBoton(
                         titulos: "<-",
@@ -84,12 +94,12 @@ class _HomePageState extends State<HomePage> {
                   ]),
                   filaBoton([
                     modeloBoton(
-                        titulos: "1/2",
+                        titulos: "1/x",
                         metodo: () {
                           print("fraccion");
                         }),
                     modeloBoton(
-                        titulos: "x^2",
+                        titulos: "x²",
                         metodo: () {
                           print("exponente");
                         }),
@@ -224,7 +234,9 @@ class _HomePageState extends State<HomePage> {
                         titulos: "=",
                         metodo: () {
                           setState(() {
-                            Resultado += "=";
+                            Operaciones += "$Resultado|";
+                            Operaciones = Operaciones.replaceAll("|", "\n");
+                            Resultado = "";
                           });
                         }),
                   ]),
