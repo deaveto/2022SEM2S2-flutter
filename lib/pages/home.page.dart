@@ -1,6 +1,7 @@
 import 'package:calculadora/models/boton.models.dart';
 import 'package:calculadora/widget/FilaBotones.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String Resultado = "";
   String Operaciones = "";
+  List<String> rehistorico = ['.', '.', '.', '.', '.', '.', '.'];
+  List<String> historico = ['.', '.', '.', '.', '.', '.', '.'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,25 +27,72 @@ class _HomePageState extends State<HomePage> {
             flex: 4,
             child: Container(
               height: 50,
-              color: Colors.grey,
+              color: Color.fromARGB(255, 43, 42, 42),
               child: Row(
                 children: [
-                  Text(
-                    Operaciones,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        rehistorico[6],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[5],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[4],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[3],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[2],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[1],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        rehistorico[0],
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Container(
               height: 100,
-              color: Colors.green,
+              color: Color.fromARGB(255, 89, 90, 89),
               child: Row(
                 children: [
                   Text(
@@ -70,19 +120,23 @@ class _HomePageState extends State<HomePage> {
                         titulos: "%",
                         metodo: () {
                           setState(() {
-                            Resultado += "%";
+                            Resultado += "/100";
                           });
                         }),
                     modeloBoton(
                         titulos: "CE",
                         metodo: () {
-                          print("CE");
+                          setState(() {
+                            Resultado = "0";
+                            historico = ['.', '.', '.', '.', '.', '.', '.'];
+                            rehistorico = new List.from(historico.reversed);
+                          });
                         }),
                     modeloBoton(
                         titulos: "C",
                         metodo: () {
                           setState(() {
-                            Resultado = "0";
+                            Resultado = "";
                             Operaciones = "0";
                           });
                         }),
@@ -234,9 +288,15 @@ class _HomePageState extends State<HomePage> {
                         titulos: "=",
                         metodo: () {
                           setState(() {
-                            Operaciones += "$Resultado|";
-                            Operaciones = Operaciones.replaceAll("|", "\n");
-                            Resultado = "";
+                            historico.add(Resultado);
+                            rehistorico = new List.from(historico.reversed);
+
+                            Parser p = new Parser();
+                            ContextModel cm = new ContextModel();
+                            Expression exp = p.parse(Resultado);
+                            Resultado = exp
+                                .evaluate(EvaluationType.REAL, cm)
+                                .toString();
                           });
                         }),
                   ]),
