@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calculadora/models/boton.models.dart';
 import 'package:calculadora/widget/FilaBotones.dart';
 import 'package:flutter/material.dart';
@@ -120,14 +122,23 @@ class _HomePageState extends State<HomePage> {
                         titulos: "%",
                         metodo: () {
                           setState(() {
-                            Resultado += "/100";
+                            String temp = Resultado;
+                            Resultado = "$Resultado/100";
+                            Parser p = new Parser();
+                            ContextModel cm = new ContextModel();
+                            Expression exp = p.parse(Resultado);
+                            Resultado = exp
+                                .evaluate(EvaluationType.REAL, cm)
+                                .toString();
+                            historico.add("$temp % = $Resultado");
+                            rehistorico = new List.from(historico.reversed);
                           });
                         }),
                     modeloBoton(
                         titulos: "CE",
                         metodo: () {
                           setState(() {
-                            Resultado = "0";
+                            Resultado = "";
                             historico = ['.', '.', '.', '.', '.', '.', '.'];
                             rehistorico = new List.from(historico.reversed);
                           });
@@ -141,27 +152,37 @@ class _HomePageState extends State<HomePage> {
                           });
                         }),
                     modeloBoton(
-                        titulos: "<-",
+                        titulos: "<\u184b",
                         metodo: () {
-                          print("<-");
+                          setState(() {
+                            Resultado =
+                                Resultado.substring(0, Resultado.length - 1);
+                          });
                         }),
                   ]),
                   filaBoton([
                     modeloBoton(
                         titulos: "1/x",
                         metodo: () {
-                          print("fraccion");
+                          setState(() {
+                            Resultado = "1/$Resultado";
+                          });
                         }),
                     modeloBoton(
                         titulos: "x²",
                         metodo: () {
-                          print("exponente");
+                          setState(() {
+                            Resultado += "^2";
+                          });
                         }),
                     modeloBoton(
                         titulos: "√",
                         metodo: () {
                           setState(() {
-                            Resultado += "√";
+                            String res = Resultado;
+                            Resultado = sqrt(num.parse(Resultado)).toString();
+                            historico.add("√($res) = $Resultado");
+                            rehistorico = new List.from(historico.reversed);
                           });
                         }),
                     modeloBoton(
@@ -267,7 +288,16 @@ class _HomePageState extends State<HomePage> {
                         titulos: "+/-",
                         metodo: () {
                           setState(() {
-                            Resultado += "+/-";
+                            Resultado = ("$Resultado*-1");
+                            Parser p = new Parser();
+                            ContextModel cm = new ContextModel();
+                            Expression exp = p.parse(Resultado);
+                            Resultado = exp
+                                .evaluate(EvaluationType.REAL, cm)
+                                .toString();
+
+                            historico.add(Resultado);
+                            rehistorico = new List.from(historico.reversed);
                           });
                         }),
                     modeloBoton(
@@ -288,8 +318,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "=",
                         metodo: () {
                           setState(() {
-                            historico.add(Resultado);
-                            rehistorico = new List.from(historico.reversed);
+                            String temp = Resultado;
 
                             Parser p = new Parser();
                             ContextModel cm = new ContextModel();
@@ -297,6 +326,8 @@ class _HomePageState extends State<HomePage> {
                             Resultado = exp
                                 .evaluate(EvaluationType.REAL, cm)
                                 .toString();
+                            historico.add("$temp = $Resultado");
+                            rehistorico = new List.from(historico.reversed);
                           });
                         }),
                   ]),
