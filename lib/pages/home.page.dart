@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   String Operaciones = "";
   List<String> rehistorico = ['.', '.', '.', '.', '.', '.', '.'];
   List<String> historico = ['.', '.', '.', '.', '.', '.', '.'];
+  bool permanencia = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,8 +112,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 4,
             child: Container(
-              //height: 100,
-              color: Colors.grey,
+              color: Color.fromARGB(255, 43, 42, 42),
               child: Column(
                 mainAxisAlignment:
                     MainAxisAlignment.spaceAround, //espacio entre columnas
@@ -122,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "%",
                         metodo: () {
                           setState(() {
+                            permanencia = true;
                             String temp = Resultado;
                             Resultado = "$Resultado/100";
                             Parser p = new Parser();
@@ -152,19 +153,21 @@ class _HomePageState extends State<HomePage> {
                           });
                         }),
                     modeloBoton(
-                        titulos: "<\u184b",
-                        metodo: () {
-                          setState(() {
-                            Resultado =
-                                Resultado.substring(0, Resultado.length - 1);
-                          });
-                        }),
+                      titulos: "<\u184b",
+                      metodo: () {
+                        setState(() {
+                          Resultado =
+                              Resultado.substring(0, Resultado.length - 1);
+                        });
+                      },
+                    ),
                   ]),
                   filaBoton([
                     modeloBoton(
                         titulos: "1/x",
                         metodo: () {
                           setState(() {
+                            permanencia = true;
                             Resultado = "1/$Resultado";
                           });
                         }),
@@ -172,6 +175,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "x²",
                         metodo: () {
                           setState(() {
+                            permanencia = true;
                             Resultado += "^2";
                           });
                         }),
@@ -179,6 +183,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "√",
                         metodo: () {
                           setState(() {
+                            permanencia = true;
                             String res = Resultado;
                             Resultado = sqrt(num.parse(Resultado)).toString();
                             historico.add("√($res) = $Resultado");
@@ -189,6 +194,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "/",
                         metodo: () {
                           setState(() {
+                            permanencia = false;
                             Resultado += "/";
                           });
                         }),
@@ -198,6 +204,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "7",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "7";
                           });
                         }),
@@ -205,6 +215,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "8",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "8";
                           });
                         }),
@@ -212,6 +226,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "9",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "9";
                           });
                         }),
@@ -219,7 +237,8 @@ class _HomePageState extends State<HomePage> {
                         titulos: "X",
                         metodo: () {
                           setState(() {
-                            Resultado += "X";
+                            permanencia = false;
+                            Resultado += "*";
                           });
                         }),
                   ]),
@@ -228,6 +247,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "4",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "4";
                           });
                         }),
@@ -235,6 +258,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "5",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "5";
                           });
                         }),
@@ -242,6 +269,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "6",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "6";
                           });
                         }),
@@ -249,6 +280,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "-",
                         metodo: () {
                           setState(() {
+                            permanencia = false;
                             Resultado += "-";
                           });
                         }),
@@ -258,6 +290,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "1",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "1";
                           });
                         }),
@@ -265,6 +301,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "2",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "2";
                           });
                         }),
@@ -272,6 +312,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "3",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "3";
                           });
                         }),
@@ -279,6 +323,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "+",
                         metodo: () {
                           setState(() {
+                            permanencia = false;
                             Resultado += "+";
                           });
                         }),
@@ -288,6 +333,7 @@ class _HomePageState extends State<HomePage> {
                         titulos: "+/-",
                         metodo: () {
                           setState(() {
+                            permanencia = false;
                             Resultado = ("$Resultado*-1");
                             Parser p = new Parser();
                             ContextModel cm = new ContextModel();
@@ -329,6 +375,7 @@ class _HomePageState extends State<HomePage> {
                             historico.add("$temp = $Resultado");
                             rehistorico = new List.from(historico.reversed);
                           });
+                          permanencia = true;
                         }),
                   ]),
                 ],
