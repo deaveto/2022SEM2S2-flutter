@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Container(
               height: 50,
               color: Color.fromARGB(255, 43, 42, 42),
@@ -350,6 +350,10 @@ class _HomePageState extends State<HomePage> {
                         titulos: "0",
                         metodo: () {
                           setState(() {
+                            if (permanencia == true) {
+                              Resultado = "";
+                              permanencia = false;
+                            }
                             Resultado += "0";
                           });
                         }),
